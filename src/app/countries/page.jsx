@@ -73,16 +73,25 @@ const Countries = () => {
       optionsDate
     );
     const dayWithSuffix = addOrdinalSuffix(localDateTime.getDate());
-    let hours = localDateTime.getHours();
-    const amPm = hours >= 12 ? "PM" : "AM";
-    hours = hours % 12 || 12;
-    const optionsTime = { hour: "numeric", minute: "numeric" };
-    const localTimeString = localDateTime.toLocaleTimeString(
-      undefined,
-      optionsTime
-    );
+    // let hours = localDateTime.getHours();
+    // const amPm = hours >= 12 ? "PM" : "AM";
+    // hours = hours % 12 || 12;
+    // const optionsTime = { hour: "numeric", minute: "numeric" };
+    // const localTimeString = localDateTime.toLocaleTimeString(
+    //   undefined,
+    //   optionsTime
+    // );
 
-    return `${dayWithSuffix} ${localDateString}, ${localTimeString} ${amPm}`;
+    // return `${dayWithSuffix} ${localDateString}, ${localTimeString} ${amPm}`;
+
+    let hours = localDateTime.getHours();
+    hours = hours % 12 || 12;
+    const optionsTime = { hour: "numeric", minute: "numeric", hour12: true }; // Add hour12 option
+
+    const localTimeString = localDateTime.toLocaleTimeString(undefined, optionsTime).toUpperCase();
+
+    return `${dayWithSuffix} ${localDateString}, ${localTimeString}`;
+
   };
 
   const showMap = (mapUrl) => {
@@ -94,7 +103,7 @@ const Countries = () => {
   };
 
   const showCountries = () => {
-    if(loading) {
+    if (loading) {
       return <Loader />
     }
     if (!allCountriesData) {
@@ -109,41 +118,41 @@ const Countries = () => {
       <div>
         <Header />
         <Searchbar onSearchChange={handleSearchChange} />
-      <div className={`container-md ${styles.countriesContainer}`}>
-        {filteredCountries.map((country, index) => (
-          <div className={`${styles.card}  card`} key={index}>
-            <div className='row'>
-              <div className='col-lg-5 align-self-center'>
-                <img
-                  src={country.flags.png}
-                  alt={`${country.name.common} flag`}
-                  className={`${styles.countryImg}`}
-                />
-              </div>
-              <div className={`${styles.cardText} col-lg-7 align-self-center`}>
-                <h2>{country.name.common}</h2>
-                <p>Currency: {country.currencies ? Object.values(country.currencies).map((currency) => currency.name).join(', ') : 'N/A'}</p>
-                <p>Current date and time: {calculateLocalDateTime(country)}</p>
-                <div className={`row buts ${styles.btnContainer}`}>
-                  <button type='button' className={`${styles.btn} btn btn-outline-primary col-5`}
-                    onClick={() => showMap(country.maps.googleMaps)}>
-                    Show Map
-                  </button>
-                  <Link
-                    href={`../countrydetails?name=${encodeURIComponent(country.name.common)}`}
-                    className={`${styles.btn} btn btn-outline-primary col-5`}
-                  >
-                  Detail  
-                  </Link>
+        <div className={`container-md ${styles.countriesContainer}`}>
+          {filteredCountries.map((country, index) => (
+            <div className={`${styles.card}  card`} key={index}>
+              <div className='row'>
+                <div className='col-lg-5 align-self-center'>
+                  <img
+                    src={country.flags.png}
+                    alt={`${country.name.common} flag`}
+                    className={`${styles.countryImg}`}
+                  />
+                </div>
+                <div className={`${styles.cardText} col-lg-7 align-self-center`}>
+                  <h2>{country.name.common}</h2>
+                  <p>Currency: {country.currencies ? Object.values(country.currencies).map((currency) => currency.name).join(', ') : 'N/A'}</p>
+                  <p>Current date and time: {calculateLocalDateTime(country)}</p>
+                  <div className={`row buts ${styles.btnContainer}`}>
+                    <button type='button' className={`${styles.btn} btn btn-outline-primary col-5`}
+                      onClick={() => showMap(country.maps.googleMaps)}>
+                      Show Map
+                    </button>
+                    <Link
+                      href={`../countrydetails?name=${encodeURIComponent(country.name.common)}`}
+                      className={`${styles.btn} btn btn-outline-primary col-5`}
+                    >
+                      Detail
+                    </Link>
+                  </div>
+
                 </div>
 
               </div>
 
             </div>
-
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
       </div>
     );
   };
