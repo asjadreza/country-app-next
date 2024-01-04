@@ -4,31 +4,24 @@ import styles from '../src/app/page.module.css'
 
 const BorderCountries = ({ borders }) => {
     const [borderCountries, setBorderCountries] = useState([]);
-    // const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchBorderCountries = async () => {
             try {
-                // Check if there are border countries
                 if (borders.length === 0) {
                     return;
                 }
-
                 const response = await fetch(`https://restcountries.com/v3.1/alpha?codes=${borders}`);
                 const borderCountriesData = await response.json();
-
-                // Check if the response is an array
                 if (Array.isArray(borderCountriesData)) {
                     setBorderCountries(borderCountriesData);
                 } else {
-                    // If not an array, it means only one country is returned
                     setBorderCountries([borderCountriesData]);
                 }
             } catch (error) {
                 console.error('Error fetching border countries:', error);
             }
         };
-
         fetchBorderCountries();
     }, [borders]);
 

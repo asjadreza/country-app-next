@@ -68,7 +68,6 @@ const CountryDetails = () => {
       )}
       {!loading && !countryData && <div>No data available for this country.</div>}
     </div>
-
   );
 };
 
