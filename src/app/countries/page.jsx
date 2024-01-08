@@ -114,13 +114,13 @@ const Countries = () => {
                     src={country.flags.png}
                     alt={`${country.name.common} flag`}
                     className={`${styles.countryImg}`}
-                    style={{border: '1px solid grey'}}
+                    style={{ border: '1px solid grey' }}
                   />
                 </div>
                 <div className={`${styles.cardText} col-lg-7 align-self-center`}>
-                  <h4 style={{fontSize: '2rem', fontWeight: '500'}}>{country.name.common}</h4>
-                  <p style={{fontWeight: '500'}}>Currency: {country.currencies ? Object.values(country.currencies).map((currency) => currency.name).join(', ') : 'N/A'}</p>
-                  <p style={{fontWeight: '500'}}>Current date and time: {calculateLocalDateTime(country)}</p>
+                  <h4 style={{ fontSize: '2rem', fontWeight: '500' }}>{country.name.common}</h4>
+                  <p style={{ fontWeight: '500' }}>Currency: {country.currencies ? Object.values(country.currencies).map((currency) => currency.name).join(', ') : 'N/A'}</p>
+                  <p style={{ fontWeight: '500' }}>Current date and time: {calculateLocalDateTime(country)}</p>
                   <div className={`row buts ${styles.btnContainer}`}>
                     <button type='button' className={`${styles.btn} btn btn-outline-primary col-5`}
                       onClick={() => showMap(country.maps.googleMaps)}>
@@ -130,22 +130,22 @@ const Countries = () => {
                       href={`../countrydetails?name=${encodeURIComponent(country.name.common)}`}
                       className={`${styles.btn} btn btn-outline-primary col-5`}
                     >
-                      Detail
-                    </Link>
-                  </div>
+                    Detail
+                  </Link>
                 </div>
               </div>
             </div>
+            </div>
           ))}
-        </div>
       </div>
+      </div >
     );
   };
-  return (
-    <div>
-      {showCountries()}
-    </div>
-  );
+return (
+  <div>
+    {showCountries()}
+  </div>
+);
 };
 
 export default Countries;

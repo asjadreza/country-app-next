@@ -7,24 +7,54 @@ import styles from '../page.module.css'
 const CountryDetails = () => {
   const [countryData, setCountryData] = useState(null);
   const [loading, setLoading] = useState(true);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const countryName = new URLSearchParams(window.location.search).get('name');
+  //       const response = await fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`);
+  //       const [country] = await response.json();
+  //       // console.log(country)
+
+  //       setCountryData(country);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error('Error fetching country data:', error);
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
+
   useEffect(() => {
+    let isMounted = true;
+
     const fetchData = async () => {
       try {
         const countryName = new URLSearchParams(window.location.search).get('name');
         const response = await fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`);
         const [country] = await response.json();
-        // console.log(country)
 
-        setCountryData(country);
-        setLoading(false);
+        if (isMounted) {
+          setCountryData(country);
+          setLoading(false);
+        }
       } catch (error) {
         console.error('Error fetching country data:', error);
-        setLoading(false);
+
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
-
-    fetchData();
+    if (isMounted) {
+      fetchData();
+    }
+    return () => {
+      isMounted = false;
+    };
   }, []);
+
 
   return (
     <div className='container-md border mt-4'>
