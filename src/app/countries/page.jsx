@@ -136,7 +136,7 @@ const Countries = () => {
                     <button
                       type="button"
                       className={`${styles.btn} btn btn-outline-primary col-5`}
-                      onClick={() => router.push(`../countrydetails?name=${encodeURIComponent(country.name.common)}`)}
+                      onClick={() => router.push(`/countrydetails?name=${encodeURIComponent(country.name.common)}`)}
                     >
                       Detail
                     </button>
