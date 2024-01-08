@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/link'
-import styles from '../page.module.css'
+import Link from 'next/link'
+import styles from '../page.module.css';
 import Header from '../../../components/Header';
 import Searchbar from '../../../components/Searchbar';
 import Loader from '../../../components/Loader'
@@ -9,7 +9,6 @@ import '../globals.css'
 
 
 const Countries = () => {
-  const router = useRouter();
   const [allCountriesData, setAllCountriesData] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
@@ -127,19 +126,25 @@ const Countries = () => {
                       onClick={() => showMap(country.maps.googleMaps)}>
                       Show Map
                     </button>
-                    {/* <Link
+                    <Link
                       href={`../countrydetails?name=${encodeURIComponent(country.name.common)}`}
                       className={`${styles.btn} btn btn-outline-primary col-5`}
                     >
                     Detail
-                  </Link> */}
-                    <button
+                  </Link>
+                    {/* <button
                       type="button"
                       className={`${styles.btn} btn btn-outline-primary col-5`}
                       onClick={() => router.push(`/countrydetails?name=${encodeURIComponent(country.name.common)}`)}
                     >
                       Detail
-                    </button>
+                    </button> */}
+
+                    {/* <Link
+                      href={`../countrydetails?name=${encodeURIComponent(country.name.common)}`}
+                      className={`${styles.btn} btn btn-outline-primary col-5`}
+                    >
+                    </Link> */}
                   </div>
                 </div>
               </div>
